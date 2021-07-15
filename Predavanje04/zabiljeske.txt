@@ -1,0 +1,114 @@
+Upravljanje zadatcima i automatizacija
+---------------------------------------
+Node.js
+------------
+
+- Node.js je JavaScript runtime environment - razvojna okolina koja omogućuje pokretanje JavaScript programa izvan okvira web browsera
+- Donosi nove mogućnosti - JavaScript više nije samo programski jezik za pisanje dinamičkih web aplikacija
+- Uz Node.js instalaciju dolazi i snažan upravitelj paketima, tj. programskim knjižnicama - npm (node package manager)
+
+Node.js instalacija
+---------------------
+
+- Kako bismo mogli početi koristiti Node.js i npm, potrebno je preuzeti i instalirati instalacijski paket s web stranice https://nodejs.org/en/download/
+- Za vrijeme instalacije obavezno potvrditi instalaciju npm package managera
+- Za provjeru je li instalacija uspješno prošla, potrebno je u command promptu unijeti sljedeće naredbe:
+	- node -v za provjeru verzije Node.js-a
+	- npm -v za provjeru verzije npm-a
+
+Package manager (sustav za upravljanje paketima)
+------------------------------------------------
+
+- skup softverskih alata koji dosljedno automatiziraju proces instaliranja, nadogradnje, konfiguriranja i brisanja računalnih programa ili biblioteka (paketa)
+- paketi sadrže metapodatke kao što su nazivi softvera, opis njegove svrhe, broj verzije, dobavljač (vendor), checksum, i popis dodatnih paketa koju su potrebni za ispravno izvršavanje programa (dependencies)
+
+- trenutno najpopularniji JavaScript package manageri su npm i yarn
+- obavljaju istu funkciju, ali postoje razlike
+- međusobno su kompatibilni - isti set biblioteka moguće je instalirati pomoću jednog ili drugog
+- npm je sastavni dio Node.js-a, a yarn potrebno je ručno instalirati
+
+npm - node packet manager
+-----------------------------
+- npm je najveći svjetski registar besplatnih biblioteka i paketa
+- sadrži više od 800 000 paketa
+- sastoji se od klijenta koji preko komandne linije poziva internetsku bazu podataka za dohvaćanje javnih ili privatnih (plaćenih) paketa
+- dostupni paketi se mogu pretraživati preko Internet
+preglednika na: https://www.npmjs.com/
+
+npm
+------------
+- uz instalaciju odabranog paketa, npm će instalirati i sve dodatne pakete koji su potrebni da bi odabrani paket funkcionirao ispravno (te pakete zovemo dependencies)
+- paketi se na npm-u nalaze u arhiviranim datotekama
+	- svaki paket sadrži meta podatke koji ga opisuju
+	- meta podaci uključuju: naziv paketa, verzija paketa i lista svih dependencyja
+
+package.json
+-------------------
+- svi npm paketi koji pripadaju nekoj aplikaciji zapisani su u datoteci koja se zove package.json
+- svaki package.json file sadrži atribute: • name: ime aplikacije
+- version: trenutna verzija aplikacije
+- dependencies: lista npm paketa koji pripadaju trenutnoj aplikaciji
+
+file .gitignore u projektu nam služi da navedemo što želimo ignorirati kod pusha na repozitori
+kad napravimo git init mapa će biti siva
+
+Alati za automatizaciju
+--------------------------
+Gulp i Webpack
+--------------------------
+
+Task runneri
+
+Prije task runnera, ako želite kompilirati Sass, pokrenuti Autoprefixer ili minificirati rezultirajući CSS svaki put kada napravite promjenu, bili biste prisiljeni obaviti svaki zadatak zasebno.
+S task runnerom možete odrediti zadatke koje želite dovršiti, pokrenuti ih jednom i on će obaviti sav posao umjesto vas.
+
+grunt, gulp, broccoli, brunch, ...
+
+gulpfile.js je JavaScript datoteka s navedenim zadacima
+Gulpfile
+
+var gulp = require('gulp');
+var uglify = require('gulp-uglify');
+gulp.task('uglify', function() {
+return gulp.src('lib/*.js')
+.pipe(uglify())
+.pipe(gulp.dest('dist'));
+});
+
+Bundleri
+------------------
+Bundling je proces kombiniranja i optimizacije više modula u jedan ili više
+proizvodno spremnih paketa.
+
+webpack, rollup, browserify, fusebox ...
+
+Webpack
+----------------------
+Osim što pazi na odnose među vašim modulima, webpack ima:
+- Hot Module Replacement
+- dependency graf
+- tree shaking
+- lazy loading
+- code splitting
+- ugrađen dev server (express)
+
+webpack.config.js
+--------------------
+
+module.exports = {
+    module: {
+	rules: [
+	{
+		test: /\.(js|jsx)$/,
+		exclude: /node_modules/,
+		use: {
+		   loader: "babel-loader"
+		}
+	}
+     ]
+}
+
+Webpack ne zahtijeva korištenje konfiguracijske datoteke. 
+Međutim, pretpostavit će da je ulazna točka vašeg projekta src/index i kreirat će rezultat u dist/main.js. Možete stvoriti webpack.config.js datoteku u vašem glavnom folderu i webpack će je automatski koristiti.
+
+Handlebars - templating

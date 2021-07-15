@@ -1,0 +1,152 @@
+Sustavi za verzioniranje koda
+------------------------------
+
+Verzioniranje koda
+-praćenje i čuvanje promjena u datoteci ili skupu datoteka
+-bilježi promjene koje su se dogodile u datotekama
+-moguće je povezivati se na bilo koju prethodnu verziju
+-u programiranju se kontroliraju verzije programskog koda, ali može se kontrolirati bilo koju vrstu datoteke na računalu
+
+VCS(Version Control System)
+-sustav kontrole verzija i omogućuje:
+	- vraćanje datoteka u prethodno stanje
+	- vraćanje cijelog projekta u prethodno stanje
+	- kronološki pregled promjena napravljenih tokom vremena
+	- identifikaciju autora imjena - tko i kada je uveo promjene
+
+-donosi dvije velike prednosti:
+	- omogućuje lak oporavak u slučaju da je nešto pošlo po krivu
+	- uvelike olakšava suradnju više od jedne osobe na istom projektu
+
+Lokalni sustavi za verzioniziranje koda
+-jedna od mogućnosti za kontrolu verzija je kopiranje datoteka u drugu mapu
+-radi svoje jednostavnosti ovaj pristup je čest ali i podložan pogreškama (lako je zaboraviti u kojoj se mapi nalazite i slučajno kopirati preko važnih datoteka ili ih izbrisati)
+
+-za rješavanje ovog problema postoje lokalni sustavi za kontrolu verzije
+-ovi sustavi imaju jednostavnu bazu podataka u kojoj se nalaze sve revizije trenutnog kôda
+
+
+Centralizirani sustav za verzioniranje kôda
+-sljedeći veliki problem jest međusobna suradnja više od jedne osobe na istom programskom kôdu (projektu)
+-u svrhu rješenja ovog problema razvijeni su centralizirani sustavi za upravljanje verzijama
+-sustavi poputCVS, SVN i Perforce, imaju jedan poslužitelj (server) koji sadrži sve verzije datoteke te nekoliko klijenata koji pregledavaju datoteke s tog središnjeg mjesta
+-dugo godina ovo je bio standard za kontroliranje verzija
+
+Ovakav sustav nudi brojne prednosti:
+-svi sudionici imaju određen pregled nad stvarima koje rade druge osobe na projektu
+-lakše je precizno odrediti prava pojedine osobe (što može učiniti ili promijeniti)
+-CVCS-om je puno lakše upravljati nego raditi s lokalnim bazama podataka na računalu svake osobe koja sudjeluje na projektu
+
+Ovakav sustav ima i ozbiljne nedostatke:
+-najočitija točka neuspjeha jest centralizirani poslužitelj
+	○ ako poslužitelj “padne” (prestane raditi), nitko ne može surađivati niti spremati nove promjene na njega
+	○ ako se podaci središnje baze na neki način oštete, a ne postoje sigurnosne kopije, izgubljena je cijela povijest projekta osim onoga što 	  se događa na lokalnim računalima
+
+-lokalni VCS sustavi imaju isti problem – uvijek kada je cijela povijest projekta spremljena samo na jednom mjestu, postoji rizik gubitka
+svega
+
+Distribuirani sustav za verzioniranje kôda
+-kod distribuiranog sustava za upravljanje verzijama (Git, Mercurial, Bazaar, Darcs) klijenti na svom računalu imaju
+kopiju cijele baze podataka poslužitelja
+ukoliko dođe do oštećenja podataka kod poslužitelja, podaci klijenata mogu se smo kopirati na novi (popravljeni) poslužitelj • jedna od glavnih prednosti DVCS-a je što klijent ne treba stalno biti spojen na poslužitelj
+
+Poznati repozitorij
+Repozitorij (repository - repo) je mjesto na kojem se pohranjuju sve datoteke jednog projekta
+-Svaki projekt ima svoj repozitorij
+-Repozitoriji mogu biti lokalni ili na nekom poslužitelju (ovisno o sustavu za verzionitanje koji koristimo)
+-Na jednom repozitoriju može raditi jedna ili više osoba
+
+Neki od popularnih repozitorija:
+- GitHub
+- GitLab
+- Bitbucket
+
+-Svi navedeni repozitoriji dijele sljedeće značajke:
+	-Pull requests - omogućuje jednostavan pregled novih promjena u kodu (code review) gdje jedan član tima otvara pull request, a drugi 	 članovi tima pregledavaju taj pull request (provjeravaju novonastale promjene, komentiraju dijelove kôda s kojima se možda ne slažu te
+	 eventualno predlažu bolja rješenja)
+	-Moguće je vidjeti povijest svih verzija jednog projekta - autora, datum te uvedene promjene
+
+
+GitHub repozitorij
+-nastao 2008. godine
+-moguće je pohraniti samo git repozitorije
+-besplatan za pohranu privatnih (maksimalno tri suradnika) i javnih repozitorija
+-trenutno je najveći repozitorij s više od 38 milijuna projekata
+-veličina repozitorija ne može biti veća od 1GB, a veličina jedne datoteke 100MB
+
+Bitbucket repozitorij
+-nastao 2008. godine
+-podržava Mercurial VCS, a od 2011. godine i git
+-nije open source
+-besplatan za pohranu privatnih (maksimalno pet suradnika) i javnih repozitorija
+-moguće je importati projekte s raznih drugih servisa
+
+GitLab repozitorij
+-nastao 2011. godine
+-moguće je pohraniti samo git repozitorije
+-među prvima je imao besplatne privatne repozitorije
+-GitLab Community Edition je besplatan i open source
+-moguće je postaviti ograničenja na korisnike
+
+Git
+-----------------
+-Git je distribuirani sustavi za upravljanje verzijama (DVCS)
+-koristi se za promjene izvornog koda tijekom razvoja softvera
+-dizajniran je za koordiniranje rada među programerima, ali se može koristiti za praćenje promjena u bilo kojem skupu datoteka
+
+-cilj Gita su velike performanse, integritet podataka, podrška za nelinearne tijekove rada
+-Git ne nudi mehanizme kontrole pristupa, ali je dizajniran za rad s drugim alatima koji su specijalizirani za kontrolu pristupa (git repozitoriji - GitHub, GitLab, Bitbucket, ..)
+
+-možemo provjeriti da je instalacija bila uspješna tako da u Command Prompt upišemo naredbu “git --version”
+
+Konfiguracija Gita
+-sva konfiguracija se radi pomoću naredbe git config
+-postavke mogu biti lokalne (vezane samo uz jedan projekt, zapisane unutar .git mape projekta) ili globalne (vezane uz korisnika računala)
+-globalne postavke se postavljaju naredbom: git config --global <naziv> <vrijednost>
+
+-za normalan rad na nekom projektu, potrebno je znati tko je točno radio koje izmjene na kôdu (commitove)
+-potrebno je podesiti ime i email adresu, koja će biti zapisana uz svaku našu promjenu na Gitu
+git config --global user.name "Ivan Horvat"
+git config --global user.email "ivan.horvat@mail.com"
+
+Kreiranje Git repozitorija
+-iako se Git najčešće koristi za verzioniranje programskog kôda, možemo ga koristiti za verzioniranje bilo kojeg seta datoteka
+-svaki direktorij na našem računalu može postati Git repozitorij
+-kako bismo direktorij “pretvorili” u Git repozitorij, potrebno je otvoriti Command Prompt, pozicionirati se u ispravan direktorij te unijeti naredbu “git init”
+
+D:\git>mkdir moj-prvi-projekt
+D:\git>cd moj-prvi-projekt
+D:\git>git init
+>>>>Initialized empty Git repository in D:/git/moj-prvi-projekt/.git/
+
+Inicijalizaciju Gita možemo vidjeti tako što se u direktoriju napravila nova (skrivena) mapa .git
+
+Git naredbe
+-Git naredbe sljedećeg su formata:
+git <naredba> <opcija1> <opcija2> ...
+
+-kako bismo dobili informacije i instrukcije za neku naredbu, koristimo:
+git help <naredba>
+
+git init - inicijalizacija git repozitorija
+git clone - povlačenje (kloniranje) postojećeg
+repozitorija na lokalno računalo
+git add - dodavanje datoteka na Git repozitorij (ovom naredbom označavamo datoteke čije promjene želimo sačuvati i spremiti na udaljeni repozitorij)
+git rm - micanje datoteka s Git repozitorija
+git commit -m "message" - lokalno spremanje trenutne verzije repozitorija (message - poruka, opis promjena koje želite spremiti)
+-git push - zapisivanje svih lokalnih commitova na udaljeni repozitorij (npr. GitHub)
+-git pull - povlačenje promjena s udaljenog na lokalni repozitorij
+
+Grananje
+
+-trenutno stanje Git repozitorija zapisano je u master branchu (grani) - to je glavna grana svakog repozitorija i njegova refrentna točka
+-Git brancheve kreiramo kada želimo napraviti velike promjene u trenutnom repozitoriju, ali ne želimo utjecati na njegovo trenutno stanje
+(master branch)
+-Branchevi se najčešće koriste kada više osoba radi na istom repozitoriju. Tada će svaka osoba otvoriti svoju granu iz mastera i raditi na vlastitim funkcionalnostima. U trenutku kada je potpuno zadovoljna novonastalim promjenama, moći će vlastiti branch vratiti natrag u master
+
+Git naredbe
+
+-git branch - kreiranje vlastite grane Git repozitorija
+-git checkout <ime-brancha> - naredba koja služi za promjenu brancha (ime-brancha označava granu na koju se želimo preseliti)
+-git merge - spajanje dvije Git grane
+-Git merge se najčešće koristi kako bi se promjene iz nekog brancha zapisale u glavni (master) branch
